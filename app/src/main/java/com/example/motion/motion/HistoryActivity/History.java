@@ -8,18 +8,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.motion.juthiapu.R;
 
 import java.util.ArrayList;
 
-public class History extends AppCompatActivity implements OnItemClickListener {
+public class History extends AppCompatActivity {
     private static History inst;
     ArrayAdapter arrayAdapter;
     ListView smsListView;
@@ -43,7 +39,6 @@ public class History extends AppCompatActivity implements OnItemClickListener {
                 this.smsMessageList
         );
         this.smsListView.setAdapter(this.arrayAdapter);
-        this.smsListView.setOnItemClickListener(this);
         m3r();
     }
 
@@ -100,19 +95,4 @@ public class History extends AppCompatActivity implements OnItemClickListener {
         this.arrayAdapter.notifyDataSetChanged();
     }
 
-    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        try {
-            String[] smsMessages = ((String) this.smsMessageList.get(position)).split("\n");
-            String address = smsMessages[0];
-            String smsMessage = "";
-            int i = 1;
-            while (1 < smsMessages.length) {
-                smsMessage = smsMessage + smsMessages[i];
-                i++;
-            }
-            Toast.makeText(this, (address + "\n") + smsMessage, 0).show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

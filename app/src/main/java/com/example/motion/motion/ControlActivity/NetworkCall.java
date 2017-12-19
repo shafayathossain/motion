@@ -1,12 +1,15 @@
 package com.example.motion.motion.ControlActivity;
+
+import android.view.View;
+import android.widget.Toast;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class NetworkCall implements MyApiService {
+public class NetworkCall {
 
-    @Override
-    public void powerOn(final ResponseCallback<String>setPinCheckListener){
+    public void powerOn(final View view){
         RetrofitApiInterface retrofitApiInterface =
                 RetrofitApiClient.getClient().create(RetrofitApiInterface.class);
         Call<ServerResponse> call = retrofitApiInterface.powerOn();
@@ -16,23 +19,22 @@ public class NetworkCall implements MyApiService {
                 ServerResponse set = response.body();
                 if (set != null) {
                     if (set.isSuccess()) {
-                        setPinCheckListener.onSuccess(set.getMessage());
+                        Toast.makeText(view.getContext(), "POWER IS ON", Toast.LENGTH_SHORT).show();
                     } else
-                        setPinCheckListener.onError(new Exception(set.getMessage()));
+                        Toast.makeText(view.getContext(), "SOMETHING WRONG", Toast.LENGTH_SHORT).show();
                 }
                 else
-                    setPinCheckListener.onError(new Exception(set.getMessage()));
+                    Toast.makeText(view.getContext(), "SOMETHING WRONG", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<ServerResponse> call, Throwable t) {
-                setPinCheckListener.onError(t);
+                Toast.makeText(view.getContext(), "SOMETHING WRONG", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    @Override
-    public void powerOff(final ResponseCallback<String> responseCallback) {
+    public void powerOff(final View view) {
         RetrofitApiInterface retrofitApiInterface =
                 RetrofitApiClient.getClient().create(RetrofitApiInterface.class);
         Call<ServerResponse> call = retrofitApiInterface.powerOff();
@@ -43,17 +45,17 @@ public class NetworkCall implements MyApiService {
                 ServerResponse set = response.body();
                 if (set != null) {
                     if (set.isSuccess()) {
-                        responseCallback.onSuccess(set.getMessage());
+                        Toast.makeText(view.getContext(), "POWER OFF", Toast.LENGTH_SHORT).show();
                     } else
-                        responseCallback.onError(new Exception(set.getMessage()));
+                        Toast.makeText(view.getContext(), "SOMETHING WRONG", Toast.LENGTH_SHORT).show();
                 }
                 else
-                    responseCallback.onError(new Exception(set.getMessage()));
+                    Toast.makeText(view.getContext(), "SOMETHING WRONG", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<ServerResponse> call, Throwable t) {
-                responseCallback.onError(t);
+                Toast.makeText(view.getContext(), "SOMETHING WRONG", Toast.LENGTH_SHORT).show();
             }
         });
     }

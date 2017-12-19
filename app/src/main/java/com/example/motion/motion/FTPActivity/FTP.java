@@ -18,7 +18,6 @@ public class FTP extends AppCompatActivity {
         String url = "http://10.10.10.240:8000/home/pi/project/";
         myWebView.getSettings().setLoadsImagesAutomatically(true);
         myWebView.getSettings().setJavaScriptEnabled(true);
-        myWebView.getSettings().getAllowFileAccess();
         myWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         myWebView.loadUrl(url);
     }

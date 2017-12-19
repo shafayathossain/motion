@@ -5,15 +5,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
+import com.example.motion.juthiapu.R;
 import com.example.motion.motion.CameraActivity.Camera;
-import com.example.motion.motion.ControlActivity.MyApiService;
 import com.example.motion.motion.ControlActivity.NetworkCall;
-import com.example.motion.motion.ControlActivity.ResponseCallback;
 import com.example.motion.motion.FTPActivity.FTP;
 import com.example.motion.motion.HistoryActivity.History;
-import com.example.motion.juthiapu.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,34 +34,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void power(final View view) {
-        System.out.println(flag);
-        MyApiService myApiService = new NetworkCall();
-        if(flag==0) {
-            myApiService.powerOn(new ResponseCallback<String>() {
-                @Override
-                public void onSuccess(String data) {
-                    Toast.makeText(view.getContext(), "POWER IS ON", Toast.LENGTH_SHORT).show();
-                }
 
-                @Override
-                public void onError(Throwable th) {
-                    Toast.makeText(view.getContext(), th.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
+        NetworkCall myApiService = new NetworkCall();
+        if(flag==0) {
+            myApiService.powerOn(view);
             flag=1;
         }
         else{
-            myApiService.powerOff(new ResponseCallback<String>() {
-                @Override
-                public void onSuccess(String data) {
-                    Toast.makeText(view.getContext(), "POWER IS OFF", Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onError(Throwable th) {
-                    Toast.makeText(view.getContext(), th.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
+            myApiService.powerOff(view);
             flag = 0;
         }
     }
